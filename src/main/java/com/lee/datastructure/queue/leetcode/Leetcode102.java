@@ -1,4 +1,6 @@
-package com.lee.datastructure.binarytree;
+package com.lee.datastructure.queue.leetcode;
+
+import com.lee.datastructure.binarytree.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
