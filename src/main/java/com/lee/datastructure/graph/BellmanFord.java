@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * <h3>Bellman-Ford 算法，可以处理负边</h3>
+ * <h3>Bellman-Ford 单源最短路径算法，可以处理负边</h3>
  */
 public class BellmanFord {
 
@@ -39,7 +39,7 @@ public class BellmanFord {
         List<Vertex> graph = Arrays.asList(v1, v2, v3, v4);*/
 
         // 负环情况
-       /* Vertex v1 = new Vertex("v1");
+        /*Vertex v1 = new Vertex("v1");
         Vertex v2 = new Vertex("v2");
         Vertex v3 = new Vertex("v3");
         Vertex v4 = new Vertex("v4");
@@ -56,22 +56,35 @@ public class BellmanFord {
     private static void bellmanFord(List<Vertex> graph, Vertex source) {
         source.dist = 0;
         int size = graph.size();
-        // 1. 进行 顶点个数 - 1 轮处理
-        for (int i = 0; i < size - 1; i++) {
+        boolean flag = false;
+        // 1. 进行 顶点个数 - 1 轮处理 , 最后再加一轮检测负环
+        for (int i = 0; i < size; i++) {
             // 2. 遍历所有的边
             for (Vertex s : graph) {
                 for (Edge edge : s.edges) {
                     // 3. 处理每一条边
                     Vertex e = edge.linked;
                     if (s.dist != Integer.MAX_VALUE && s.dist + edge.weight < e.dist) {
+                        // 如果在【顶点个数-1】轮处理完成后，还能继续找到更短距离，表示发现了负环
+                        if (i == size - 1) {
+                            flag = true;
+                            break;
+                        }
                         e.dist = s.dist + edge.weight;
                         e.prev = s;
                     }
                 }
+                if (flag) {
+                    break;
+                }
             }
         }
-        for (Vertex v : graph) {
-            System.out.println(v);
+        if (!flag) {
+            for (Vertex v : graph) {
+                System.out.println(v);
+            }
+        } else {
+            throw new RuntimeException("发现了负环，最短路径无解");
         }
     }
 
