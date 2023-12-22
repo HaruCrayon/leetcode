@@ -36,14 +36,13 @@ public class DFS {
     // 非递归实现
     private static void dfs2(Vertex v) {
         LinkedList<Vertex> stack = new LinkedList<>();
-        v.visited = true;
         stack.push(v);
         while (!stack.isEmpty()) {
             Vertex pop = stack.pop();
+            pop.visited = true;
             System.out.println(pop.name);
             for (Edge edge : pop.edges) {
                 if (!edge.linked.visited) {
-                    edge.linked.visited = true;
                     stack.push(edge.linked);
                 }
             }
