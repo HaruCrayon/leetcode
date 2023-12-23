@@ -18,14 +18,14 @@ public class Leetcode797 {
         return result;
     }
 
-    private void dfs(int[][] graph, int x, List<List<Integer>> result, List<Integer> path) {
-        path.add(x);
-        if (x == graph.length - 1) {
+    private void dfs(int[][] graph, int curr, List<List<Integer>> result, List<Integer> path) {
+        path.add(curr);
+        if (curr == graph.length - 1) {
             result.add(new ArrayList<>(path));
             return;
         }
-        for (int i : graph[x]) {
-            dfs(graph, i, result, path);
+        for (int neighbor : graph[curr]) {
+            dfs(graph, neighbor, result, path);
             path.remove(path.size() - 1);
         }
     }

@@ -59,7 +59,7 @@ public class TopologicalSort {
             }
         }
         if (result.size() != graph.size()) {
-            System.out.println("出现环");
+            throw new RuntimeException("发现了环");
         } else {
             for (String key : result) {
                 System.out.println(key);
