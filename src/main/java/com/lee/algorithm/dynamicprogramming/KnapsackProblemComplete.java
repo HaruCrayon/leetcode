@@ -5,59 +5,39 @@ import java.util.Collections;
 import java.util.stream.IntStream;
 
 /**
- * <h3>0-1 背包问题 - 动态规划</h3>
+ * <h3>完全背包问题 - 动态规划</h3>
  */
-public class KnapsackProblem {
+public class KnapsackProblemComplete {
     /*
-        1. n个物品都是固体，有重量和价值
-        2. 现在你要取走不超过 10克 的物品
-        3. 每次可以不拿或全拿，问最高价值是多少
+            0   1   2   3   4   5   6
+        1   0   0   c   c   cc  cc  ccc     青铜 重2
+        2   0   0   c   s   cc  sc  ccc     白银 重3
+        3   0   0   c   s   a   a   ac      黄金 重4
 
-            编号 重量(g)  价值(元)                        简称
-            1   4       1600           黄金一块   400     A
-            2   8       2400           红宝石一粒 300     R
-            3   5       30             白银一块          S
-            4   1       1_000_000      钻石一粒          D
-        1_001_630 贪心解
-        1_002_400 正确解
-     */
-
-    /*
-            0   1   2   3   4   5   6   7   8   9   10
-        0   0   0   0   0   A   A   A   A   A   A   A       黄金
-
-        1   0   0   0   0   A   A   A   A   R   R   R       红宝石
-
-        2   0   0   0   0   A   A   A   A   R   R   R       白银
-
-        3   0   D   D   D   D   DA  DA  DA  DA  DR  DR      钻石
-
-
-        if(装不下) {
+        if(放得下) {
+            dp[i][j] = max(dp[i-1][j], dp[i][j-item.weight] + item.value)
+        } else {
             dp[i][j] = dp[i-1][j]
-        } else { 装得下
-            dp[i][j] = max(dp[i-1][j], item.value + dp[i-1][j-item.weight])
         }
 
      */
 
     public static void main(String[] args) {
         Item[] items = new Item[]{
-                new Item(1, "黄金", 4, 1600),
-                new Item(2, "宝石", 8, 2400),
-                new Item(3, "白银", 5, 30),
-                new Item(4, "钻石", 1, 10_000),
+                new Item(1, "青铜", 2, 3),    // c
+                new Item(2, "白银", 3, 4),    // s
+                new Item(3, "黄金", 4, 7),    // a
         };
-        System.out.println(select(items, 10));
+        System.out.println(select(items, 6));
     }
 
     // 降维
     static int select(Item[] items, int total) {
         int[] dp = new int[total + 1];
         for (Item item : items) {
-            for (int j = total; j > 0; j--) {
-                if (j >= item.weight) { // 装得下
-                    dp[j] = Integer.max(dp[j], item.value + dp[j - item.weight]);
+            for (int j = 0; j < total + 1; j++) {
+                if (j >= item.weight) {
+                    dp[j] = Integer.max(dp[j], dp[j - item.weight] + item.value);
                 }
             }
             System.out.println(Arrays.toString(dp));
@@ -69,8 +49,8 @@ public class KnapsackProblem {
         int[][] dp = new int[items.length][total + 1];
         Item item0 = items[0];
         for (int j = 0; j < total + 1; j++) {
-            if (j >= item0.weight) { // 装得下
-                dp[0][j] = item0.value;
+            if (j >= item0.weight) {
+                dp[0][j] = dp[0][j - item0.weight] + item0.value;
             }
         }
         print(dp);
@@ -80,15 +60,15 @@ public class KnapsackProblem {
                 int x = dp[i - 1][j];
                 if (j >= item.weight) {
                     dp[i][j] = Integer.max(x,
-//                            上次剩余空间能装的最大价值 + 当前物品价值
-                            dp[i - 1][j - item.weight] + item.value);
+//                            剩余空间能装的最大价值 + 当前物品价值
+                            dp[i][j - item.weight] + item.value);
                 } else {
                     dp[i][j] = x;
                 }
             }
             print(dp);
         }
-        return dp[dp.length - 1][total];
+        return dp[items.length - 1][total];
     }
 
     private static void print(int[][] dp) {
