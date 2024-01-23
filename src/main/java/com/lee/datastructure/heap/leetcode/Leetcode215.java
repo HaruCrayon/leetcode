@@ -2,6 +2,8 @@ package com.lee.datastructure.heap.leetcode;
 
 import com.lee.datastructure.heap.MinHeap;
 
+import java.util.PriorityQueue;
+
 /**
  * 215. 数组中的第 K 个最大元素
  *
@@ -26,7 +28,7 @@ public class Leetcode215 {
      *     <li>时间复杂度 O(n*log(n))</li>
      * </ol>
      */
-    public int findKthLargest(int[] nums, int k) {
+    public int findKthLargest2(int[] nums, int k) {
         MinHeap heap = new MinHeap(k);
         for (int i = 0; i < k; i++) {
             heap.offer(nums[i]);
@@ -40,11 +42,25 @@ public class Leetcode215 {
         return heap.peek();
     }
 
+    // 使用Java优先级队列当作小顶堆
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> heap = new PriorityQueue<>(k);
+        for (int i = 0; i < k; i++) {
+            heap.offer(nums[i]);
+        }
+        for (int i = k; i < nums.length; i++) {
+            if (nums[i] > heap.peek()) {
+                heap.poll();
+                heap.offer(nums[i]);
+            }
+        }
+
+        return heap.peek();
+    }
+
     public static void main(String[] args) {
         Leetcode215 code = new Leetcode215();
-        // 应为5
-        System.out.println(code.findKthLargest(new int[]{3, 2, 1, 5, 6, 4}, 2));
-        // 应为4
-        System.out.println(code.findKthLargest(new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6}, 4));
+        System.out.println(code.findKthLargest(new int[]{3, 2, 1, 5, 6, 4}, 2)); // 5
+        System.out.println(code.findKthLargest(new int[]{3, 2, 3, 1, 2, 4, 5, 5, 6}, 4)); // 4
     }
 }
