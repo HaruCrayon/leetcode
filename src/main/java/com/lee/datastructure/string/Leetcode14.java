@@ -1,4 +1,4 @@
-package com.lee.algorithm.string;
+package com.lee.datastructure.string;
 
 /**
  * 14. 最长公共前缀

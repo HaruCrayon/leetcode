@@ -1,4 +1,4 @@
-package com.lee.algorithm.string;
+package com.lee.datastructure.string;
 
 /**
  * 5. 最长回文子串

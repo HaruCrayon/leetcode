@@ -1,4 +1,4 @@
-package com.lee.algorithm.string;
+package com.lee.datastructure.string;
 
 /**
  * 76. 最小覆盖子串

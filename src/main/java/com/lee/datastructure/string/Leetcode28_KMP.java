@@ -1,4 +1,4 @@
-package com.lee.algorithm.string;
+package com.lee.datastructure.string;
 
 /**
  * <h3>字符串匹配 - KMP算法 The Knuth-Morris-Pratt Algorithm</h3>
