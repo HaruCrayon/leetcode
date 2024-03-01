@@ -7,20 +7,31 @@ package com.lee.datastructure.string;
  * @version 1.0
  */
 public class Leetcode14 {
-
     /*
                i
          j   f l o w e r
              f l o w
              f l i g h t
+
+         情况1：比较某一列时，遇到不同字符，i 之前的字符就是解
+         情况2：比较某一列时，遇到字符串长度不够，i 之前的字符就是解
+         情况3：i 循环自然结束，此时第一个字符串就是解
      */
 
     public static String longestCommonPrefix(String[] strs) {
-        /*
-            情况1：比较某一列时，遇到不同字符，i 之前的字符就是解
-            情况2：比较某一列时，遇到字符串长度不够，i 之前的字符就是解
-            情况3：i 循环自然结束，此时第一个字符串就是解
-         */
+        String first = strs[0];
+        for (int i = 0; i < first.length(); i++) {
+            char c = first.charAt(i);
+            for (int j = 1; j < strs.length; j++) {
+                if (strs[j].length() == i || strs[j].charAt(i) != c) {
+                    return first.substring(0, i);
+                }
+            }
+        }
+        return first;
+    }
+
+    public static String longestCommonPrefix2(String[] strs) {
         char[] first = strs[0].toCharArray(); // 第一个字符串
         for (int i = 0; i < first.length; i++) {
             char ch = first[i];
