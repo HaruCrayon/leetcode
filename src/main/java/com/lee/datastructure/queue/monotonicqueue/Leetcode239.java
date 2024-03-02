@@ -1,4 +1,4 @@
-package com.lee.datastructure.monotonicqueue;
+package com.lee.datastructure.queue.monotonicqueue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
