@@ -1,4 +1,4 @@
-package com.lee.datastructure.monotonicstack;
+package com.lee.datastructure.stack.monotonicstack;
 
 import java.util.ArrayList;
 import java.util.Collections;
