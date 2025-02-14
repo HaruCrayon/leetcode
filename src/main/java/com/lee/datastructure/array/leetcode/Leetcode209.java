@@ -25,8 +25,4 @@ public class Leetcode209 {
         }
         return minLen == Integer.MAX_VALUE ? 0 : minLen;
     }
-
-    public static void main(String[] args) {
-        System.out.println(minSubArrayLen(11, new int[]{1,1,1,1,1,1,1,1}));
-    }
 }
