@@ -45,7 +45,7 @@ public class Leetcode3 {
         return maxLength;
     }
 
-    // 优化 pwwkew
+    // 优化
     public int lengthOfLongestSubstring(String s) {
         int[] map = new int[128];
         Arrays.fill(map, -1);
