@@ -37,17 +37,15 @@ public class Leetcode3 {
             char ch = s.charAt(end);
             if (map.containsKey(ch)) {
                 begin = Math.max(begin, map.get(ch) + 1);
-                map.put(ch, end);
-            } else {
-                map.put(ch, end);
             }
+            map.put(ch, end);
 //            System.out.println(s.substring(begin, end + 1));
             maxLength = Math.max(maxLength, end - begin + 1);
         }
         return maxLength;
     }
 
-    // 优化
+    // 优化 pwwkew
     public int lengthOfLongestSubstring(String s) {
         int[] map = new int[128];
         Arrays.fill(map, -1);
@@ -57,11 +55,8 @@ public class Leetcode3 {
             char ch = s.charAt(end);
             if (map[ch] != -1) {
                 begin = Math.max(begin, map[ch] + 1);
-                map[ch] = end;
-            } else {
-                map[ch] = end;
             }
-            System.out.println(s.substring(begin, end + 1));
+            map[ch] = end;
             maxLength = Math.max(maxLength, end - begin + 1);
         }
         return maxLength;
