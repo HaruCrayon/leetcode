@@ -3,7 +3,7 @@ package com.lee.datastructure.stack.leetcode;
 import java.util.LinkedList;
 
 /**
- * @description:
+ * @description: 简化路径
  * @author: LiJing
  * @date: 2025/2/15
  */
@@ -52,10 +52,5 @@ public class Leetcode71 {
             sb.append("/").append(dirs[i]);
         }
         return sb.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(simplifyPath("/.../a/../b///c/../d/./"));
-        System.out.println(simplifyPath("/../"));
     }
 }
