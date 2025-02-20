@@ -16,6 +16,23 @@ public class Leetcode94 {
 
     public List<Integer> inorderTraversal(TreeNode root) {
         LinkedList<TreeNode> stack = new LinkedList<>();
+        TreeNode curr = root;
+        List<Integer> result = new ArrayList<>();
+
+        while (curr != null || !stack.isEmpty()) {
+            while (curr != null) {
+                stack.push(curr);
+                curr = curr.left;
+            }
+            curr = stack.pop();
+            result.add(curr.val);
+            curr = curr.right;
+        }
+        return result;
+    }
+
+    public List<Integer> inorderTraversal01(TreeNode root) {
+        LinkedList<TreeNode> stack = new LinkedList<>();
 
         TreeNode curr = root; // 代表当前节点
         TreeNode pop = null; // 最近一次弹栈的元素

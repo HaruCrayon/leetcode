@@ -3,6 +3,8 @@ package com.lee.datastructure.binarytree.leetcode;
 import com.lee.datastructure.binarytree.TreeNode;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 105. 从前序与中序遍历序列构造二叉树
@@ -29,7 +31,7 @@ public class Leetcode105 {
         右 7
      */
 
-    public TreeNode buildTree(int[] preOrder, int[] inOrder) {
+    public TreeNode buildTree01(int[] preOrder, int[] inOrder) {
         if (preOrder.length == 0) {
             return null;
         }
@@ -55,9 +57,27 @@ public class Leetcode105 {
         return root;
     }
 
-    public static void main(String[] args) {
-        int[] preOrder = {1, 2, 4, 3, 6, 7};
-        int[] inOrder = {4, 2, 1, 6, 3, 7};
-        TreeNode root = new Leetcode105().buildTree(preOrder, inOrder);
+    // 优化
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        return recursion(preorder, map, 0, preorder.length - 1, 0, preorder.length - 1);
+    }
+
+    private TreeNode recursion(int[] preorder, Map<Integer, Integer> map,
+                               int preBegin, int preEnd, int inBegin, int inEnd) {
+        if (preBegin > preEnd) {
+            return null;
+        }
+        // 创建根节点
+        int rootValue = preorder[preBegin];
+        TreeNode root = new TreeNode(rootValue);
+        // 切分左右子树
+        Integer idx = map.get(rootValue);
+        root.left = recursion(preorder, map, preBegin + 1, preBegin + idx - inBegin, inBegin, idx - 1);
+        root.right = recursion(preorder, map, preBegin + idx - inBegin + 1, preEnd, idx + 1, inEnd);
+        return root;
     }
 }
