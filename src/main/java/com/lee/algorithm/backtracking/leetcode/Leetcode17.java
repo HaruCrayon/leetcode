@@ -32,7 +32,7 @@ public class Leetcode17 {
             for (int j = 0; j < size; j++) {
                 String poll = queue.poll();
                 for (String letter : letters) {
-                    queue.add(poll + letter);
+                    queue.offer(poll + letter);
                 }
             }
         }
